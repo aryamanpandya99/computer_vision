@@ -7,3 +7,5 @@ The goal of this was not to build a crazy revolutionary model (it was that in 19
 
 I used OOP style classes to declare my model layers and forward pass, played with some hyperparameters, switched around loss functions and optimizers,
 tested and trained over the original MNIST Dataset. It was fun. 98% test accuracy with SGD, woo! 
+
+Note: The code is not the most modular, nor does it visualize data (I did that on the side) but that was not within the goal of this work, future projects will be better I promise 
