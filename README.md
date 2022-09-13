@@ -1,4 +1,4 @@
-# ComputerVision
+# Computer Vision
 Collection of small side projects on my DL for CV journey 
 
 **Prerequisites to run notebooks:**
