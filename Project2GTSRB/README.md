@@ -5,7 +5,7 @@ and it proves to be an interesting Computer Vision challenge due to the visual s
 
 The goal of this project was to (as promised in Project 1) make my code a little bit more modular, and to 
 apply the concept of Transfer Learning in PyTorch. In this implementation I download/load the dataset, transform all the images 
-to be somewhat normalized (and sized as equally as possible), finetune (and re-train) the original ResNet architecture to be leveraged 
+to be somewhat normalized (and resized equally), finetune (and re-train) the original ResNet architecture to be leveraged 
 for the GTSRB classification task and tested this implementation. 
 
 On the initial iteration, I was able to obtain 90% validation accuracy and 68% test accuracy (big sad) but this makes sense because the data
