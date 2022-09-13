@@ -6,7 +6,7 @@ Collection of small side projects on my DL for CV journey
 1. Python 3.7 or greater 
 2. numpy 
 3. PyTorch 
-4. cuda enabled NVIDIA GPU (or access to one through a VM) (or extreme patience) 
+4. cuda enabled NVIDIA GPU (or access to one through a VM) (or __extreme__ patience) 
 5. Torchvision 
 6. Jupyter Notebooks or Google Colab
 
