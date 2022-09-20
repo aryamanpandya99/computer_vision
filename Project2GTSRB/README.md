@@ -8,6 +8,6 @@ apply the concept of Transfer Learning in PyTorch. In this implementation I down
 to be somewhat normalized (and resized equally), finetune (and re-train) the original ResNet architecture to be leveraged 
 for the GTSRB classification task and tested this implementation. 
 
-On the initial iteration, I was able to obtain 90% validation accuracy and 68% test accuracy (big sad) but this makes sense because the data
-was not pre-processed well enough. This is fine because optimal data pre-processing was outside the scope of this project. Future projects 
-(Project 3 onwards) will have a heavier emphasis on pre-processing, further architecture fine-tuning and test set accuracy. 
+The Project2GTSRB.ipynb notebook contains the code for the model and classification implementation, whereas the GTSRBDataAugmentation.ipynb notebook contains the code for data visualization and augmentation. While the model may seem like the attractive and cool part, the data augmentation and visualization provide the strategy to make the model accurate. A lot more time and effort went into that side of things. This applies for this dataset since its unbalanced in its class distribution, but is a trend you can observe in most real world data. We tend to see some sort of Gaussan distribution of most data. 
+
+"When compute + algorithms max out but fail to solve problems, good data comes to the rescue" - Someone, probably. 
