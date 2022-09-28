@@ -1,5 +1,7 @@
 **Project 2: Transfer Learning on the German Traffic Sign Recognition Benchmark (GTSRB)**
 
+**(In-progress)**
+
 GTSRB provides a dataset with 50,000 images of traffic signs in Germany. There exist 43 classes within the dataset, 
 and it proves to be an interesting Computer Vision challenge due to the visual similarity of many of these signs. 
 
