@@ -14,6 +14,6 @@ As of the time of this commit, CS231n is the only course I've worked on so far, 
 
 The above list is not comprehensive but lists the main building blocks for most projects in this repo. Check import lists in notebooks to find out most specifically what libraries/modules you need. 
 
-Hopefully as you navigate from Project 1 to Project N (right now N = 2 but hopefully by the time someone's reading this, N > 10) you'll notice profound growth and maturity (maybe) 
+Hopefully as you navigate from Project 1 to Project N (right now N = 2 but hopefully by the time someone's reading this, N > 2) you'll notice profound growth and maturity (maybe) 
 
 **Update 10/13/22**: The plan for the project progression is as follows- Projects 1-5 will focus on choosing breakthrough papers in classification/detection/segmentation/generative modeling, and recreating their proposed architectures to tackle some arbitrary dataset. This will act as the foundational layer of my programming experience, familiairizing myself with techniques, tools, and architectures. Projects after that will be more abstract, and reflect more creativity and problem solving experience. 
