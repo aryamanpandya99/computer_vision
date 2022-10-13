@@ -1,7 +1,7 @@
 # Computer Vision
 This repo represents the projects I'm working on while self-guidedly taking CS231n: Deep Learning for Computer Vision from Stanford University on YouTube. This course is one of many I will be taking over the next year to put myself through sorts of a self-guided masters program. Other repos will contain code from projects for other classes. 
 
-As of the time of this commit, CS231n is the only course I've worked on so far, but the rest include but aren't limited to: Artificial Inteligence- Principles & techniques, Natural language understanding with Deep Learning, Reinforcement learning and so on. 
+As of the time of this commit, CS231n is the only course I've worked on so far. The rest include but aren't limited to: Artificial Inteligence- Principles & techniques, Natural language understanding with Deep Learning, Reinforcement learning and so on. 
 
 **Prerequisites to run notebooks:**
 
