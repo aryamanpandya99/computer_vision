@@ -14,7 +14,7 @@ The above list is not comprehensive but lists the main building blocks for most 
 
 Hopefully as you navigate from Project 1 to Project N (right now N = 2 but hopefully by the time someone's reading this, N > 10) you'll notice profound growth and maturity (maybe) 
 
-**Update: The plan for the project progression is as follows- Projects 1-5 will focus on choosing breakthrough papers in classification/detection/segmentation/generative modeling, and recreating their proposed architectures to tackle some arbitrary dataset. This will act as the foundational layer of my programming experience, familiairizing myself with techniques, tools, and architectures. Projects after that will be more abstract, and reflect more creativity and problem solving experience. 
+**Update 10/13/22**: The plan for the project progression is as follows- Projects 1-5 will focus on choosing breakthrough papers in classification/detection/segmentation/generative modeling, and recreating their proposed architectures to tackle some arbitrary dataset. This will act as the foundational layer of my programming experience, familiairizing myself with techniques, tools, and architectures. Projects after that will be more abstract, and reflect more creativity and problem solving experience. 
 
 This repo represents the projects I'm working on while self-guidedly taking CS231n: Deep Learning for Computer Vision from Stanford University on YouTube. This course is one of many I will be taking over the next year to put myself through sorts of a self-guided masters program. Other repos will contain code from projects for other classes. 
 
