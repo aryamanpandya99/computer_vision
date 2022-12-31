@@ -2,7 +2,7 @@
 Welcome to my first personal project! 
 
 If the MNIST dataset is the Hello World equivalent for Computer Vision, LeNet-5 is the print statement that makes it visible to you. 
-In this notebook, I implemented LeNet-5 from Yann LeCun's original paper (with a few tweaks - lots of credit to StackOverflow)
+In this notebook, I implemented LeNet-5 from Yann LeCun's original paper.
 
 The goal of this was not to build a crazy revolutionary model (it was that in 1986) but to familiarize myself with the structure of PyTorch. 
 
