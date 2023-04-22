@@ -1,19 +1,32 @@
-# Computer Vision
-This repo represents the projects I'm working on while self-guidedly taking CS231n: Deep Learning for Computer Vision from Stanford University on YouTube. This course is one of many I will be taking over the next year to put myself through sorts of a self-guided masters program. Other repos will contain code from projects for other classes. 
+# Computer Vision Projects
 
-As of the time of this commit, CS231n is the only course I've worked on so far. The rest include but aren't limited to: Artificial Inteligence- Principles & techniques, Natural language understanding with Deep Learning, Reinforcement learning and so on. 
+This repository contains projects related to Computer Vision, completed as part of the self-guided CS231n: Deep Learning for Computer Vision course from Stanford University on YouTube. The projects in this repository represent one of many courses that the author will be taking over the next year as part of a self-guided Master's program. 
 
-**Prerequisites to run notebooks:**
+The repository currently only contains two projects related to CS231n, but the author plans to add more projects related to other courses such as Artificial Intelligence- Principles & Techniques, Natural Language Understanding with Deep Learning, Reinforcement Learning, and others.
 
-1. Python 3.7 or greater 
-2. numpy 
-3. PyTorch 
-4. cuda enabled NVIDIA GPU (or access to one through a VM) (or __extreme__ patience) 
-5. Torchvision 
-6. Jupyter Notebooks or Google Colab
+## Prerequisites
 
-The above list is not comprehensive but lists the main building blocks for most projects in this repo. Check import lists in notebooks to find out most specifically what libraries/modules you need. 
+To run the notebooks in this repository, you will need the following:
 
-Hopefully as you navigate from Project 1 to Project N (right now N = 2 but hopefully by the time someone's reading this, N > 2) you'll notice profound growth and maturity.
+- Python 3.7 or greater
+- numpy
+- PyTorch
+- A CUDA enabled NVIDIA GPU (or access to one through a VM), or the patience to use a CPU
+- Torchvision
+- Jupyter Notebooks or Google Colab
 
-**Update 10/13/22**: The plan for the project progression is as follows- Projects 1-5 will focus on choosing breakthrough papers in classification/detection/segmentation/generative modeling, and recreating their proposed architectures to tackle some arbitrary dataset. This will act as the foundational layer of my programming experience, familiairizing myself with techniques, tools, and architectures. Projects after that will be more abstract, and reflect more creativity and problem solving experience. 
+The above list is not comprehensive, but lists the main requirements for most projects in this repository. Check the import lists in the notebooks for specific libraries and modules needed for each project.
+
+## Projects
+
+The projects in this repository focus on breakthrough papers in classification, detection, segmentation, and generative modeling, recreating their proposed architectures to tackle arbitrary datasets. The first five projects will act as a foundational layer for programming experience, familiarizing the author with techniques, tools, and architectures. Projects after that will be more abstract, reflecting more creativity and problem-solving experience.
+
+## License
+
+This repository is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgments
+
+- CS231n: Deep Learning for Computer Vision course from Stanford University
+- PyTorch community
+- Jupyter community
