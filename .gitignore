@@ -1,2 +1,3 @@
 cifar-10-batches-py/*
 augmentation/data/*
+*.DS_Store
