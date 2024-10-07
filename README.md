@@ -5,3 +5,5 @@ Then, if the notebook contains blocks of code that can be re-used for different 
 under the `src` directory. 
 
 In this iterative fashion, I'm building a mini vision library built off of pure PyTorch. 
+
+This repository goes from Lenet-5, to diffusion. 
