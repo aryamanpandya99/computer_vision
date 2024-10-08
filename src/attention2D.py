@@ -4,51 +4,63 @@ import torch
 import torch.nn as nn
 
 
-def scaled_dot_product_attention(q, k, d_k, mask):
-    scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
-    if mask is True:
-        mask = torch.tril(torch.ones(scores.shape)).to(q.device)
-        scores = scores.masked_fill(mask == 0, float("-inf"))
-    return nn.Softmax(-1)(scores)
-
-
-class Attention(nn.Module):
+class Attention2D(nn.Module):
     """
-    Multihead attention class implementation. Can act as self-attention (default, y is None)
-    or cross attention if y not none
+    Multihead attention.
     """
-
-    def __init__(self, d_k, d_model, d_v, dropout, num_heads, mask) -> None:
-        super(Attention, self).__init__()
-        self.d_k, self.d_v, self.d_model, self.num_heads = d_k, d_v, d_model, num_heads
-        self.query_layer, self.key_layer, self.value_layer = (
-            nn.Linear(d_model, num_heads * d_k),
-            nn.Linear(d_model, num_heads * d_k),
-            nn.Linear(d_model, num_heads * d_v),
+    def __init__(self,
+                 d_k: int, 
+                 dropout: float, 
+                 num_heads: int, 
+                 num_channels: int,
+                 num_groups: int = 8,
+                 mask: bool = False
+                 ):
+        super(Attention2D, self).__init__()
+        self.d_k, self.num_heads = d_k, num_heads
+        self.query_projection, self.key_projection, self.value_projection = (
+            nn.Linear(num_channels, num_heads* d_k),
+            nn.Linear(num_channels, num_heads* d_k), 
+            nn.Linear(num_channels, num_heads*d_k)
         )
-        self.layer_norm = nn.LayerNorm(d_model)
-        self.concat_projection = nn.Linear(num_heads * d_v, d_model)
+        self.layer_norm = nn.LayerNorm(num_channels)
+        self.output_layer = nn.Linear(num_heads*d_k, num_channels)
         self.dropout = nn.Dropout(dropout)
         self.mask = mask
+        self.num_channels = num_channels
 
-    def forward(self, x, y=None):
+    def forward(self, x, y = None):
+        batch_size, n_channels, height, width = x.shape
+        x = x.view(batch_size, n_channels, height * width).permute(0, 2, 1)
         residual = x
+        
         x = self.layer_norm(x)
         if y is not None:
             k, q, v = y, x, y
         else:
             k, q, v = x, x, x
-
-        k_len, q_len, v_len, batch_size = k.size(1), q.size(1), v.size(1), q.size(0)
-        k = self.key_layer(k).view(batch_size, k_len, self.num_heads, self.d_k)
-        q = self.query_layer(q).view(batch_size, q_len, self.num_heads, self.d_k)
-        v = self.value_layer(v).view(batch_size, v_len, self.num_heads, self.d_v)
+        
+        k_len, q_len, v_len, batch_size = k.size(1), q.size(1), v.size(1),  q.size(0)
+        
+        k = self.key_projection(k).view(batch_size, k_len,  self.num_heads, self.d_k)
+        q = self.query_projection(q).view(batch_size, q_len,  self.num_heads, self.d_k)
+        v = self.value_projection(v).view(batch_size, v_len,  self.num_heads, self.d_k)
+        
         attention = scaled_dot_product_attention(
-            q.transpose(1, 2), k.transpose(1, 2), self.d_k, self.mask
+            q.transpose(1, 2), 
+            k.transpose(1, 2), 
+            self.d_k, 
+            self.mask
         )
         output = torch.matmul(attention, v.transpose(1, 2))
-        output = self.concat_projection(
-            output.transpose(1, 2).contiguous().view(batch_size, q_len, -1)
-        )
-
+        output = self.output_layer(output.transpose(1, 2).contiguous().view(batch_size, q_len, -1))
+        
         return self.dropout(output) + residual
+
+
+def scaled_dot_product_attention(q, k, d_k, mask):
+    scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
+    if mask is True:
+        mask = torch.tril(torch.ones(scores.shape)).to(q.device)
+        scores = scores.masked_fill(mask == 0, float('-inf'))
+    return nn.Softmax(-1)(scores)
