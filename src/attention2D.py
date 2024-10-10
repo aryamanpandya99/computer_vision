@@ -46,6 +46,13 @@ class Attention2D(nn.Module):
         self.num_channels = num_channels
 
     def forward(self, x, y=None):
+        """
+        forward pass for the attention mechanism.
+        
+        Args:
+            x: input tensor
+            y: optional tensor for cross-attention
+        """
         batch_size, n_channels, height, width = x.shape
         x = x.view(batch_size, n_channels, height * width).permute(0, 2, 1)
         residual = x

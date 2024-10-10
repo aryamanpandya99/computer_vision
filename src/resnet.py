@@ -30,8 +30,8 @@ class ResBlock(nn.Module):
             in_channels: number of input channels
             out_channels: number of output channels
             activation: activation function
-            kernel_size: kernel size
-            stride: stride
+            kernel_size: convolutional kernel size
+            stride: convolutional stride
             padding: padding
             dropout: dropout rate
             num_groups: number of groups for group normalization
@@ -72,10 +72,25 @@ class ResBlock(nn.Module):
         self.dropout = nn.Dropout(dropout)
         self.timestep_emb_dim = timestep_emb_dim
 
+        if self.timestep_emb_dim is not None:
+            self.timestep_emb_proj = nn.Linear(timestep_emb_dim, out_channels)
+
     def forward(self, x, timestep_emb=None):
-        h = self.conv(x)
-        ## TODO: add timestep embedding handling
+        """
+        Forward pass of the residual block.
+        Args:
+            x: input tensor
+            timestep_emb: optional timestep embedding
+        """
+        h = self.norm1(x)
+        h = self.conv1(h)
+
+        if self.timestep_emb_dim is not None:
+            h += self.activation(self.timestep_emb_proj(timestep_emb))
+
+        h = self.conv2(h)
         h_id = self.avgpool(self.idconv(x))
+
         return self.dropout(self.activation(h + h_id))
 
 
@@ -93,6 +108,15 @@ class ResNet(nn.Module):
         stride: int = 2,
         dropout: float = 0.2,
     ):
+        """
+        Args:
+            num_channels: number of input channels
+            num_classes: number of output classes
+            filters: list of filter sizes
+            activation: activation function
+            stride: convolutional stride
+            dropout: dropout rate
+        """
         super().__init__()
         res_layers = [ResBlock(num_channels, filters[0], activation, stride=1)]
         for i in range(len(filters) - 1):
