@@ -12,19 +12,21 @@ class ResBlock(nn.Module):
         padding: int = 1,
         dropout: float = 0.2,
         num_groups: int = 1,
+        timestep_emb_dim: int = None,
     ):
         super().__init__()
-        self.conv = nn.Sequential(
+        self.norm1 = nn.Sequential(
             nn.GroupNorm(num_groups=num_groups, num_channels=in_channels),
-            activation(),
-            nn.Conv2d(
-                in_channels,
-                out_channels,
-                kernel_size=kernel_size,
-                stride=stride,
-                padding=padding,
-            ),
-            activation(),
+            activation()
+        )
+        self.conv1 = nn.Conv2d(
+            in_channels,
+            out_channels,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding=padding,
+        )
+        self.conv2 = nn.Sequential(
             nn.Conv2d(
                 out_channels,
                 out_channels,
@@ -32,8 +34,9 @@ class ResBlock(nn.Module):
                 stride=1,
                 padding=padding,
             ),
-            nn.GroupNorm(num_groups=num_groups, num_channels=out_channels),
+            nn.GroupNorm(num_groups=num_groups, num_channels=out_channels)
         )
+        self.activation = activation()
 
         if in_channels == out_channels:
             self.idconv = nn.Identity()
@@ -45,9 +48,12 @@ class ResBlock(nn.Module):
         )
         self.activation = activation()
         self.dropout = nn.Dropout(dropout)
-
-    def forward(self, x):
+        self.timestep_emb_dim = timestep_emb_dim
+    
+    
+    def forward(self, x, timestep_emb=None):
         h = self.conv(x)
+        ## TODO: add timestep embedding handling 
         h_id = self.avgpool(self.idconv(x))
         return self.dropout(self.activation(h + h_id))
 
