@@ -1,7 +1,18 @@
+"""
+This module contains the building blocks for a ResNet model.
+Author: Aryaman Pandya
+"""
+
 import torch.nn as nn
 
 
 class ResBlock(nn.Module):
+    """
+    A residual block with optional timestep embedding handling.
+    Can be used as a building block for a ResNet or a UNet used
+    for diffusion.
+    """
+
     def __init__(
         self,
         in_channels: int,
@@ -14,10 +25,21 @@ class ResBlock(nn.Module):
         num_groups: int = 1,
         timestep_emb_dim: int = None,
     ):
+        """
+        Args:
+            in_channels: number of input channels
+            out_channels: number of output channels
+            activation: activation function
+            kernel_size: kernel size
+            stride: stride
+            padding: padding
+            dropout: dropout rate
+            num_groups: number of groups for group normalization
+            timestep_emb_dim: number of dimensions in the timestep embedding
+        """
         super().__init__()
         self.norm1 = nn.Sequential(
-            nn.GroupNorm(num_groups=num_groups, num_channels=in_channels),
-            activation()
+            nn.GroupNorm(num_groups=num_groups, num_channels=in_channels), activation()
         )
         self.conv1 = nn.Conv2d(
             in_channels,
@@ -34,7 +56,7 @@ class ResBlock(nn.Module):
                 stride=1,
                 padding=padding,
             ),
-            nn.GroupNorm(num_groups=num_groups, num_channels=out_channels)
+            nn.GroupNorm(num_groups=num_groups, num_channels=out_channels),
         )
         self.activation = activation()
 
@@ -49,16 +71,19 @@ class ResBlock(nn.Module):
         self.activation = activation()
         self.dropout = nn.Dropout(dropout)
         self.timestep_emb_dim = timestep_emb_dim
-    
-    
+
     def forward(self, x, timestep_emb=None):
         h = self.conv(x)
-        ## TODO: add timestep embedding handling 
+        ## TODO: add timestep embedding handling
         h_id = self.avgpool(self.idconv(x))
         return self.dropout(self.activation(h + h_id))
 
 
 class ResNet(nn.Module):
+    """
+    A simple ResNet model with a series of residual blocks.
+    """
+
     def __init__(
         self,
         num_channels: int,
