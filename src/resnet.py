@@ -86,7 +86,8 @@ class ResBlock(nn.Module):
         h = self.conv1(h)
 
         if self.timestep_emb_dim is not None:
-            h += self.activation(self.timestep_emb_proj(timestep_emb))
+            timestep_emb = self.timestep_emb_proj(timestep_emb)[:, :, None, None] # Enables broadcasting
+            h += self.activation(timestep_emb)
 
         h = self.conv2(h)
         h_id = self.avgpool(self.idconv(x))
