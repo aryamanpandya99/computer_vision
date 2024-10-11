@@ -8,6 +8,7 @@ dependencies = [
     "ipython>=8.28.0",
     "matplotlib>=3.9.2",
     "numpy>=2.1.2",
+    "requests>=2.32.3",
     "ruff>=0.6.9",
     "torch>=2.4.1",
     "torchvision>=0.19.1",
@@ -17,4 +18,3 @@ dependencies = [
 dev-dependencies = [
     "ipykernel>=6.29.5",
 ]
-src = ["src"]

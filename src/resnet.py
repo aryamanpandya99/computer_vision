@@ -12,7 +12,6 @@ class ResBlock(nn.Module):
     Can be used as a building block for a ResNet or a UNet used
     for diffusion.
     """
-
     def __init__(
         self,
         in_channels: int,
