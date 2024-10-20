@@ -48,7 +48,7 @@ class Attention2D(nn.Module):
     def forward(self, x, y=None):
         """
         forward pass for the attention mechanism.
-        
+
         Args:
             x: input tensor
             y: optional tensor for cross-attention

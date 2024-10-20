@@ -12,6 +12,7 @@ class ResBlock(nn.Module):
     Can be used as a building block for a ResNet or a UNet used
     for diffusion.
     """
+
     def __init__(
         self,
         in_channels: int,
@@ -85,7 +86,9 @@ class ResBlock(nn.Module):
         h = self.conv1(h)
 
         if self.timestep_emb_dim is not None:
-            timestep_emb = self.timestep_emb_proj(timestep_emb)[:, :, None, None] # Enables broadcasting
+            timestep_emb = self.timestep_emb_proj(timestep_emb)[
+                :, :, None, None
+            ]  # Enables broadcasting
             h += self.activation(timestep_emb)
 
         h = self.conv2(h)

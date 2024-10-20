@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
+
 
 def show_torch_image(img):
     # Check if the image has only one channel (grayscale)
@@ -8,6 +8,6 @@ def show_torch_image(img):
     else:
         img = img.permute(1, 2, 0).cpu().numpy()
 
-    plt.imshow(img, cmap='gray' if len(img.shape) == 2 else None)
-    plt.axis('off')
+    plt.imshow(img, cmap="gray" if len(img.shape) == 2 else None)
+    plt.axis("off")
     plt.show()
