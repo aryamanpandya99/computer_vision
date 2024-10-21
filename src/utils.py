@@ -43,6 +43,7 @@ def save_checkpoint(
         optim: torch.optim.Optimizer, 
         all_train_loss: list, 
         all_valid_loss: list,
+        checkpoint_name_prefix: str,
     ):
     """
     Save a checkpoint of the model at the given epoch.
@@ -53,9 +54,10 @@ def save_checkpoint(
         optim: the optimizer
         all_train_loss: the training loss
         all_valid_loss: the validation loss
+        checkpoint_name_prefix: the prefix for the checkpoint name
     """
     
-    checkpoint_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch+1}.pth')
+    checkpoint_path = os.path.join(checkpoint_dir, f'{checkpoint_name_prefix}_epoch_{epoch+1}.pth')
     
     torch.save({
         'epoch': epoch,

@@ -19,6 +19,7 @@ def train_model(
         using_diffusers: bool = False,
         checkpoint_dir: str = 'checkpoints',
         checkpoint_every: int = 5,
+        checkpoint_name_prefix: str = 'ddpm',
     ) -> tuple[list[float], list[float]]:
     """
     Train the model for the specified number of epochs.
@@ -36,6 +37,7 @@ def train_model(
         using_diffusers (bool, optional): Whether using HuggingFace Diffusers library. Defaults to False.
         checkpoint_dir (str, optional): Directory to save checkpoints. Defaults to 'checkpoints'.
         checkpoint_every (int, optional): Save checkpoint every n epochs. Defaults to 5.
+        checkpoint_name_prefix (str, optional): The prefix for the checkpoint name. Defaults to 'ddpm'.
 
     Returns:
         tuple[list[float], list[float]]: The training and validation losses.
@@ -87,7 +89,15 @@ def train_model(
             )
         
         if epoch % checkpoint_every == 0:   
-            save_checkpoint(model, epoch, checkpoint_dir, optim, all_train_loss, all_valid_loss)
+            save_checkpoint(
+                model, 
+                epoch, 
+                checkpoint_dir, 
+                optim, 
+                all_train_loss, 
+                all_valid_loss, 
+                checkpoint_name_prefix
+            )
 
     plot_loss(all_train_loss, all_valid_loss)
     

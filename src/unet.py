@@ -52,6 +52,7 @@ class UNet(nn.Module):
 
         self.time_embed_dim = down_filters[0] * 4
         self.num_layers = num_layers
+        self.right_has_attention = list(reversed(has_attention))
 
         if self.T is not None:
             self.timestep_embedding = TimestepEmbedding(
@@ -88,7 +89,7 @@ class UNet(nn.Module):
         self.right_block = RightBlock(
             filters=self.up_filters,
             num_layers=num_layers,
-            has_attention=has_attention,
+            has_attention=self.right_has_attention,
             num_heads=num_heads,
             dropout=dropout,
             timestep_emb_dim=self.time_embed_dim,
