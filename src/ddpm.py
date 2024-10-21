@@ -1,8 +1,10 @@
 import os
+
 import torch
 import torch.nn as nn
 
 from src.utils import plot_loss, save_checkpoint
+
 
 def train_model(
         model: nn.Module,
@@ -67,6 +69,8 @@ def train_model(
             loss.backward()
             optim.step()
             
+            train_loss.append(loss.item())
+
             if isinstance(scheduler, torch.optim.lr_scheduler.OneCycleLR):
                 scheduler.step()
         
@@ -108,6 +112,7 @@ def prepare_batch(x: torch.Tensor, T: int, alpha_bar: torch.Tensor):
     t = torch.randint(0, T, (x.shape[0],), requires_grad=False).to(x.device)
     e = torch.randn_like(x, requires_grad=False).to(x.device)
     
+
     alpha_bar_t = alpha_bar[t].view(-1, 1, 1, 1)
     noisy_images = (alpha_bar_t.sqrt() * x) + ((1 - alpha_bar_t).sqrt() * e)
     

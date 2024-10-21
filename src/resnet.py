@@ -79,7 +79,7 @@ class ResBlock(nn.Module):
         """
         Forward pass of the residual block.
         Args:
-            x: input tensor
+            x: inpuwt tensor
             timestep_emb: optional timestep embedding
         """
         h = self.norm1(x)
