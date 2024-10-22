@@ -16,6 +16,7 @@ def train_model(
         valid_every: int = 1,
         T: int = 1000,
         scheduler: torch.optim.lr_scheduler._LRScheduler = None,
+        per_step_scheduler: bool = False,
         using_diffusers: bool = False,
         checkpoint_dir: str = 'checkpoints',
         checkpoint_every: int = 5,
@@ -73,12 +74,12 @@ def train_model(
             
             train_loss.append(loss.item())
 
-            if isinstance(scheduler, torch.optim.lr_scheduler.OneCycleLR):
+            if per_step_scheduler:
                 scheduler.step()
         
         all_train_loss.append(sum(train_loss) / len(train_loss))
         
-        if scheduler is not None and (not isinstance(scheduler, torch.optim.lr_scheduler.OneCycleLR)):
+        if scheduler is not None and (not per_step_scheduler):
             scheduler.step()
 
         if epoch % valid_every == 0:

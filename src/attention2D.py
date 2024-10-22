@@ -11,7 +11,7 @@ import torch.nn as nn
 
 def scaled_dot_product_attention(q, k, d_k, mask):
     scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
-    if mask is True:
+    if mask:
         mask = torch.tril(torch.ones(scores.shape)).to(q.device)
         scores = scores.masked_fill(mask == 0, float('-inf'))
     return nn.Softmax(-1)(scores)
@@ -36,19 +36,16 @@ class Attention2D(nn.Module):
             num_heads: number of heads
             num_channels: number of channels
             num_groups: number of groups for group normalization
-            mask: whether to a mask
+            mask: whether to use a mask
         """
         super(Attention2D, self).__init__()
-        self.d_k, self.num_heads = d_k, num_heads
+        self.d_k = d_k if d_k is not None else num_channels
+        self.num_heads = num_heads
         
-        if self.d_k is None:
-            self.d_k = num_channels 
-
-        self.query_projection, self.key_projection, self.value_projection = (
-            nn.Linear(num_channels, num_heads * self.d_k),
-            nn.Linear(num_channels, num_heads * self.d_k), 
-            nn.Linear(num_channels, num_heads * self.d_k)
-        )
+        self.query_projection = nn.Linear(num_channels, num_heads * self.d_k)
+        self.key_projection = nn.Linear(num_channels, num_heads * self.d_k)
+        self.value_projection = nn.Linear(num_channels, num_heads * self.d_k)
+        
         self.group_norm = nn.GroupNorm(
             num_groups=num_groups, 
             num_channels=num_channels
@@ -77,11 +74,11 @@ class Attention2D(nn.Module):
         else:
             k, q, v = x, x, x
         
-        k_len, q_len, v_len, batch_size = k.size(1), q.size(1), v.size(1),  q.size(0)
+        k_len, q_len, v_len = k.size(1), q.size(1), v.size(1)
         
-        k = self.key_projection(k).view(batch_size, k_len,  self.num_heads, self.d_k)
-        q = self.query_projection(q).view(batch_size, q_len,  self.num_heads, self.d_k)
-        v = self.value_projection(v).view(batch_size, v_len,  self.num_heads, self.d_k)
+        k = self.key_projection(k).view(batch_size, k_len, self.num_heads, self.d_k)
+        q = self.query_projection(q).view(batch_size, q_len, self.num_heads, self.d_k)
+        v = self.value_projection(v).view(batch_size, v_len, self.num_heads, self.d_k)
         
         attention = scaled_dot_product_attention(
             q.transpose(1, 2), 

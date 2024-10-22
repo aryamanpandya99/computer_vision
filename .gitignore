@@ -3,3 +3,4 @@ augmentation/data/*
 *.DS_Store
 *.pyc
 checkpoints/*
+test.ipynb
