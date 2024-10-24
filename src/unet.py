@@ -333,6 +333,14 @@ class RightBlock(nn.Module):
         self.upsample_layers = nn.ModuleList(upsample_layers)
 
     def forward(self, x, residual_outputs, timestep_emb=None):
+        """
+        Forward pass of the right block.
+
+        Args:
+            x: input tensor
+            residual_outputs: list of residual outputs from the left block
+            timestep_emb: timestep embedding
+        """
         for i in range(len(self.conv_layers)):
             residual = residual_outputs[-(i + 1)]
             _, _, h, w = x.shape
