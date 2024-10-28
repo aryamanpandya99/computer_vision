@@ -15,6 +15,6 @@ This repository goes from Lenet-5, to diffusion.
 - `dcgan.ipynb`: Deep convolutional Generative Adversarial Networks. 
 - `resnets.ipynb`: residual networks.  
 - `fcn_Segmentation.ipynb`: fully convolutional networks for semantic segmentation. 
-- `ddpm.ipynb`: diffusion models. 
-
-
+- `ddpm_mnist.ipynb`: implementing diffusion models architecture on MNIST.
+- `ddpm_cifar.ipynb`: applying the DDPM architecture from `src` to CIFAR-10.
+- `mixture_of_experts.ipynb`: implementing a sparsely-gated mixture of experts with ResNets.
