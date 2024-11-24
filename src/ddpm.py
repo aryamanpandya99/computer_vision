@@ -2,7 +2,7 @@ import os
 
 import torch
 import torch.nn as nn
-
+from typing import Tuple
 from src.utils import plot_loss, save_checkpoint
 
 
@@ -105,7 +105,11 @@ def train_model(
     return all_train_loss, all_valid_loss
 
 
-def prepare_batch(x: torch.Tensor, T: int, alpha_bar: torch.Tensor):
+def prepare_batch(
+        x: torch.Tensor, 
+        T: int, 
+        alpha_bar: torch.Tensor
+    ) -> Tuple[Tuple[torch.Tensor, torch.Tensor], torch.Tensor]:
     """
     Prepare a batch for training by generating random timesteps and adding noise to the image.
     We use the random timesteps to generate the amount of noise that should be added to the image at that timestep.
@@ -130,11 +134,12 @@ def prepare_batch(x: torch.Tensor, T: int, alpha_bar: torch.Tensor):
     return (noisy_images, t), e
 
 
-def get_alpha_bar(beta_schedule: torch.Tensor):
+def get_alpha_bar(beta_schedule: torch.Tensor) -> torch.Tensor:
     """
     what we need to do here is prepare a tensor of alpha_bars where each t'th entry
     in alphabars is the product of the alphas leading up to it. Alpha is  as 1 - beta
     """
+    
     alpha = 1. - beta_schedule
     return alpha.cumprod(dim=0)
 
