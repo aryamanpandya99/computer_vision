@@ -4,3 +4,4 @@ augmentation/data/*
 *.pyc
 checkpoints/*
 test.ipynb
+*.plan
